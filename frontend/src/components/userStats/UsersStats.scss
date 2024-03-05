@@ -1,0 +1,15 @@
+.user-summary {
+  width: 100%;
+  .info-summary {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.card {
+  border: 1px solid #ccc;
+  // border-bottom: 3px solid var(--light-blue);
+  padding: 5px;
+  background-color: #fff;
+}
+
