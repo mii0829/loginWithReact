@@ -13,8 +13,11 @@ import {
   register,
   RESET,
   sendVerificationEmail,
+  loginWithGoogle,
+
 } from "../../redux/features/auth/authSlice";
 import Loader from "../../components/loader/Loader";
+import { GoogleLogin } from "@react-oauth/google";
 
 const initialState = {
   name: "",
@@ -116,6 +119,15 @@ const Register = () => {
     dispatch(RESET());
   }, [isLoggedIn, isSuccess, dispatch, navigate]);
 
+
+  const googleLogin = async (credentialResponse) => {
+    console.log(credentialResponse);
+    await dispatch(
+      loginWithGoogle({ userToken: credentialResponse.credential })
+    );
+  };
+
+
   return (
     <div className={`container ${styles.auth}`}>
       {isLoading && <Loader />}
@@ -125,6 +137,21 @@ const Register = () => {
             <TiUserAddOutline size={35} color="#999" />
           </div>
           <h2>Register</h2>
+
+          <div className="--flex-center">
+            {/* <button className="--btn --btn-google">Login With Google
+            </button> */}
+            <GoogleLogin
+              onSuccess={googleLogin}
+              onError={() => {
+                console.log("Login Failed");
+                toast.error("Login Failed");
+              }}
+            />
+          </div>
+          <br />
+          <p className="--text-center --fw-bold">or</p>
+
 
           <form onSubmit={registerUser}>
             <input
