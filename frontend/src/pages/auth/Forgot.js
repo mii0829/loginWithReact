@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
-import { BiLogIn } from "react-icons/bi";
+import { SiTodoist } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";

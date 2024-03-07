@@ -199,7 +199,7 @@ const sendLoginCode = asyncHandler(async (req, res) => {
   const decryptedLoginCode = cryptr.decrypt(loginCode);
 
   // Send Login Code
-  const subject = "Login Access Code - AUTH:Z";
+  const subject = "Login Access Code - todoGuru";
   const send_to = email;
   const sent_from = process.env.EMAIL_USER;
   const reply_to = "noreply@zino.com";
@@ -327,7 +327,7 @@ const sendVerificationEmail = asyncHandler(async (req, res) => {
 
   // Send Email
   //sendEmail関数に送る変数に値を代入
-  const subject = "Verify Your Account - AUTH:Z";
+  const subject = "Verify Your Account - todoGuru";
   const send_to = user.email;
   const sent_from = process.env.EMAIL_USER;
   const reply_to = "noreply@test.com";
@@ -594,7 +594,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   const resetUrl = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
 
   // Send Email
-  const subject = "Password Reset Request - AUTH:Z";
+  const subject = "Password Reset Request - todoGuru";
   const send_to = user.email;
   const sent_from = process.env.EMAIL_USER;
   const reply_to = "noreply@zino.com";

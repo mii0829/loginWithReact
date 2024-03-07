@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.scss";
-import { BiLogIn } from "react-icons/bi";
+import { SiTodoist } from "react-icons/si";
 import { FaUserCircle } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -28,8 +28,8 @@ const Header = () => {
     <header className="header">
       <nav>
         <div className="logo" onClick={goHome}>
-          <BiLogIn size={35} />
-          <span>AUTH:Z</span>
+          <SiTodoist size={35} />
+          <span>todoGuru</span>
         </div>
 
         <ul className="home-links">
