@@ -130,6 +130,13 @@ const createTodo = async (postData) => {
   return response.data;
 };
 
+// Get Tasks
+const getTasks = async () => {
+  const response = await axios.get(API_URL + "getTasks");
+
+  return response.data;
+};
+
 const authService = {
   register,
   login,
@@ -149,6 +156,7 @@ const authService = {
   loginWithCode,
   loginWithGoogle,
   createTodo,
+  getTasks,
 };
 
 export default authService;

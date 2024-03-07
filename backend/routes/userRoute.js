@@ -27,6 +27,7 @@ const {
   loginWithCode,
   loginWithGoogle,
   createTodo,
+  getTasks,
 } = require("../controllers/userController");
 
 router.post("/register", registerUser);
@@ -54,5 +55,6 @@ router.post("/loginWithCode/:email", loginWithCode);
 
 router.post("/google/callback", loginWithGoogle);
 router.post("/todo", createTodo);
+router.get("/getTasks",getTasks);
 
 module.exports = router;

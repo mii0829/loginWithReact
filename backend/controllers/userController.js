@@ -808,6 +808,18 @@ const createTodo = asyncHandler(async (req, res) => {
 
 });
 
+
+// Get Tasks
+const getTasks = asyncHandler(async (req, res) => {
+  
+  const tasks = await Post.find().sort("-createdAt");
+  if (!tasks) {
+    res.status(500);
+    throw new Error("Something went wrong");
+  }
+  res.status(200).json(tasks);
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -828,4 +840,5 @@ module.exports = {
   loginWithCode,
   loginWithGoogle,
   createTodo,
+  getTasks,
 };

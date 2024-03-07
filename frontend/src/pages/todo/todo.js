@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../components/card/Card";
 import "./todo.scss";
 import PageMenu from "../../components/pageMenu/PageMenu";
@@ -7,31 +7,23 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/loader/Loader";
 import { toast } from "react-toastify";
 import Notification from "../../components/notification/Notification.js";
-
-
-import {
-  createTodo,
-} from "../../redux/features/auth/authSlice";
-
-
-// export const shortenText = (text, n) => {
-//   if (text.length > n) {
-//     const shortenedText = text.substring(0, n).concat("...");
-//     return shortenedText;
-//   }
-//   return text;
-// };
+import { getTasks, createTodo } from "../../redux/features/auth/authSlice";
 
 const Todo = () => {
   useRedirectLoggedOutUser("/login");
-  const { isLoading, isLoggedIn, isSuccess, message, user } = useSelector(
-    (state) => state.auth
-  );
-
-  
+  const { isLoading, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
+
+  useEffect(() => {
+    dispatch(getTasks()).then((response) => {
+      if (response.payload) {
+        setTasks(response.payload);
+      }
+    });
+  }, [dispatch]);
 
   const todomake = async (e) => {
     e.preventDefault();
@@ -45,16 +37,13 @@ const Todo = () => {
       date,
     };
 
-    // ToDoを作成するためのロジックを追加する
     await dispatch(createTodo(postData));
-
   };
 
   return (
     <>
       <section>
         {isLoading && <Loader />}
-        {/* {!profile.isVerified && <Notification />} */}
         <div className="container">
           <PageMenu />
           <h2>Todo List</h2>
@@ -62,6 +51,22 @@ const Todo = () => {
             <Card cardClass={"card"}>
               {!isLoading && user && (
                 <>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>title</th>
+                        <th>date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tasks.map((task, index) => (
+                        <tr key={index}>
+                          <td>{task.title}</td>
+                          <td>{task.date}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                   <form onSubmit={todomake}>
                     <p>
                       <label>title:</label>
