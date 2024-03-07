@@ -33,7 +33,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, isLoggedIn, isSuccess, message } = useSelector(
+  const { isLoading, isLoggedIn, isSuccess } = useSelector(
     (state) => state.auth
   );
 
@@ -45,6 +45,7 @@ const Register = () => {
   const timesIcon = <FaTimes color="red" size={15} />;
   const checkIcon = <BsCheck2All color="green" size={15} />;
 
+  //validationをしっかり満たしていれば、checkIconそうでなければ×のアイコン
   const switchIcon = (condition) => {
     if (condition) {
       return checkIcon;
@@ -57,6 +58,7 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  //passwordのチェック
   useEffect(() => {
     // Check Lower and Uppercase
     if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
@@ -84,28 +86,36 @@ const Register = () => {
     }
   }, [password]);
 
+
+
   const registerUser = async (e) => {
     e.preventDefault();
 
+    //必要項目が抜けていたら警告
     if (!name || !email || !password) {
       return toast.error("All fields are required");
     }
+    //passwordの長さが満たなかったら警告
     if (password.length < 6) {
       return toast.error("Password must be up to 6 characters");
     }
+    //mailアドレスとして認識されなかったら警告
     if (!validateEmail(email)) {
       return toast.error("Please enter a valid email");
     }
+    //2つのパスワードが一致しなかったら警告
     if (password !== password2) {
       return toast.error("Passwords do not match");
     }
 
+    //userData変数に値を格納
     const userData = {
       name,
       email,
       password,
     };
 
+    //console画面に入力内容を表示
     // console.log(userData);
     await dispatch(register(userData));
     await dispatch(sendVerificationEmail());

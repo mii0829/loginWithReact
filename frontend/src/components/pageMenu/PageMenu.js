@@ -8,6 +8,9 @@ const PageMenu = () => {
       <nav className="--btn-google --p --mb">
         <ul className="home-links">
           <li>
+            <NavLink to="/todo">Todo</NavLink>
+          </li>
+          <li>
             <NavLink to="/profile">Profile</NavLink>
           </li>
           <li>

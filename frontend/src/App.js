@@ -10,6 +10,7 @@ import Verify from "./pages/auth/Verify";
 import ChangePassword from "./pages/changePassword/ChangePassword";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
+import Todo from "./pages/todo/todo";
 import UserList from "./pages/userList/UserList";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -63,6 +64,15 @@ function App() {
               element={
                 <Layout>
                   <Verify />
+                </Layout>
+              }
+            />
+
+            <Route
+              path="/todo"
+              element={
+                <Layout>
+                  <Todo />
                 </Layout>
               }
             />

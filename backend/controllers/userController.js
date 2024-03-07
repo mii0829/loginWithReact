@@ -1,6 +1,7 @@
 
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
+const Post = require("../models/postModel");
 const bcrypt = require("bcryptjs");
 const { generateToken, hashToken } = require("../utils");
 var parser = require("ua-parser-js");
@@ -774,6 +775,39 @@ const loginWithGoogle = asyncHandler(async (req, res) => {
   }
 });
 
+// create todo
+const createTodo = asyncHandler(async (req, res) => {
+  // res.send("createTodo")
+  const { title, date } = req.body;
+
+  // Validation
+  if (!title || !date) {
+    res.status(400);
+    throw new Error("Please fill in all the required fields.");
+  }
+
+  //   Create new todo
+  const post = await Post.create({
+    title,
+    date,
+  });
+
+  if (post) {
+    const {title,date } = post;
+
+    res.status(201).json({
+      title,
+      date,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+
+  
+
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -793,4 +827,5 @@ module.exports = {
   sendLoginCode,
   loginWithCode,
   loginWithGoogle,
+  createTodo,
 };

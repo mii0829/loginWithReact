@@ -26,6 +26,7 @@ const {
   sendLoginCode,
   loginWithCode,
   loginWithGoogle,
+  createTodo,
 } = require("../controllers/userController");
 
 router.post("/register", registerUser);
@@ -52,5 +53,6 @@ router.post("/sendLoginCode/:email", sendLoginCode);
 router.post("/loginWithCode/:email", loginWithCode);
 
 router.post("/google/callback", loginWithGoogle);
+router.post("/todo", createTodo);
 
 module.exports = router;
