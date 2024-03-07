@@ -8,29 +8,32 @@ import Loader from "../../components/loader/Loader";
 import { toast } from "react-toastify";
 import Notification from "../../components/notification/Notification.js";
 
-export const shortenText = (text, n) => {
-  if (text.length > n) {
-    const shortenedText = text.substring(0, n).concat("...");
-    return shortenedText;
-  }
-  return text;
-};
+
+import {
+  createTodo,
+} from "../../redux/features/auth/authSlice";
+
+
+// export const shortenText = (text, n) => {
+//   if (text.length > n) {
+//     const shortenedText = text.substring(0, n).concat("...");
+//     return shortenedText;
+//   }
+//   return text;
+// };
 
 const Todo = () => {
   useRedirectLoggedOutUser("/login");
   const { isLoading, isLoggedIn, isSuccess, message, user } = useSelector(
     (state) => state.auth
   );
-  const initialState = {
-    title: user?.name || "",
-    date: user?.email || "",
-  };
+
+  
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
 
-  const createTodo = async (e) => {
+  const todomake = async (e) => {
     e.preventDefault();
 
     if (!title || !date) {
@@ -43,6 +46,8 @@ const Todo = () => {
     };
 
     // ToDoを作成するためのロジックを追加する
+    await dispatch(createTodo(postData));
+
   };
 
   return (
@@ -57,7 +62,7 @@ const Todo = () => {
             <Card cardClass={"card"}>
               {!isLoading && user && (
                 <>
-                  <form onSubmit={createTodo}>
+                  <form onSubmit={todomake}>
                     <p>
                       <label>title:</label>
                       <input

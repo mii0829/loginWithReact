@@ -124,6 +124,12 @@ const loginWithGoogle = async (userToken) => {
   return response.data;
 };
 
+// createTodor
+const createTodo = async (postData) => {
+  const response = await axios.post(API_URL + "todo", postData);
+  return response.data;
+};
+
 const authService = {
   register,
   login,
@@ -142,6 +148,7 @@ const authService = {
   sendLoginCode,
   loginWithCode,
   loginWithGoogle,
+  createTodo,
 };
 
 export default authService;

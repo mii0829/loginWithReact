@@ -660,6 +660,25 @@ const authSlice = createSlice({
   },
 });
 
+
+// createTodo
+export const createTodo = createAsyncThunk(
+  "auth/todo",
+  async (postData, thunkAPI) => {
+    try {
+      return await authService.createTodo(postData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const { RESET, CALC_VERIFIED_USER, CALC_SUSPENDED_USER } =
   authSlice.actions;
 
